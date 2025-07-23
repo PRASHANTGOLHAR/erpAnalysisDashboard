@@ -15,10 +15,11 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1 class="header-title">ERP User Dashboard</h1>
+            <h1 class="header-title">ERP Analysis Dashboard</h1>
             <p class="header-subtitle">Welcome to your comprehensive financial management system</p>
+            <p class="header-subtitle">The ERP Analysis Dashboard provides a unified view of AR and AP financing, enabling businesses to monitor receivables, manage payables, and optimize cash flow. It offers real-time insights into customer payments, vendor obligations, and financing opportunities. This helps improve working capital efficiency and support strategic financial decisions.</p>
         </header>
-
+        <a href="https://prashantgolhar.github.io/erp_user/" class="back">< Back to Invoice Upload System</a>
         <!-- Tab Navigation -->
         <div class="tab-container">
             <button class="tab-button active" onclick="switchTab('ar')">
@@ -35,25 +36,25 @@
         <div id="ar-tab" class="tab-content active">
             <!-- Metrics Cards -->
             <div class="metrics-grid">
-                 <div class="metric-card" data-tooltip="Sum of all invoice amounts from AR CRM">
-                    <div class="metric-icon ar-secondary">
-                        <i class="fas fa-file-invoice"></i>
-                    </div>
-                    <div class="metric-content">
-                        <h3>Total Invoice Amount</h3>
-                        <p class="metric-value" id="ar-total-invoice">$0</p>
-                    </div>
-                </div>
                 <div class="metric-card" data-tooltip="Sum of all loan amounts from AR CRM">
                     <div class="metric-icon ar-primary">
                         <i class="fas fa-dollar-sign"></i>
                     </div>
-                    <div class="metric-content">
+                     <div class="metric-content">
+                        <h3>Total Invoice Amount</h3>
+                        <p class="metric-value" id="ar-total-invoice">$0</p>
+                    </div>
+                    
+                </div>
+                <div class="metric-card" data-tooltip="Sum of all invoice amounts from AR CRM">
+                    <div class="metric-icon ar-secondary">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                   <div class="metric-content">
                         <h3>Total Loan Amount</h3>
                         <p class="metric-value" id="ar-total-loan">$0</p>
                     </div>
                 </div>
-               
                 <div class="metric-card" data-tooltip="Count of eligible invoices in AR CRM">
                     <div class="metric-icon ar-accent">
                         <i class="fas fa-check-circle"></i>
@@ -69,59 +70,57 @@
             <div class="analysis-section">
                 <div class="section-header">
                     <h2>Analysis</h2>
-                    <div class="filter-container">
-                        <select id="ar-batch-filter" onchange="filterARData()">
-                            <option value="all">Select All</option>
-                        </select>
-                    </div>
                 </div>
-                <div class="charts-grid">
-                    <!-- <div class="chart-item">
-                        <h3>Bar Chart</h3>
-                        <canvas id="ar-bar-chart"></canvas>
-                    </div> -->
-                    <!-- <div class="chart-item">
-                        <h3>Pie Chart</h3>
-                        <canvas id="ar-pie-chart"></canvas>
-                    </div> -->
-                    <div class="chart-item">
-                        <h3>Line Chart</h3>
-                        <canvas id="ar-line-chart"></canvas>
+                <div class="analysis-content">
+                    <div class="chart-container-35">
+                        <div class="chart-header">
+                            <h3>Trend Analysis</h3>
+                            <div class="chart-filters">
+                                <div class="date-filter-group">
+                                    <label>From:</label>
+                                    <input type="date" id="ar-from-date" onchange="filterARAnalysis()">
+                                    <label>To:</label>
+                                    <input type="date" id="ar-to-date" onchange="filterARAnalysis()">
+                                    <label>FY:</label>
+                                    <select id="ar-financial-year" onchange="filterARAnalysis()">
+                                        <option value="all">All Years</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <canvas id="ar-line-chart"></canvas>
+                        </div>
                     </div>
-                </div>
-                <div class="data-table-container">
-                    <table id="ar-data-table" class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Batch ID</th>
-                                <th>Customer</th>
-                                <th>Invoice #</th>
-                                <th>Amount</th>
-                                <th>Loan Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="table-container-65">
+                        <div class="table-header">
+                            <h3>Data Table</h3>
+                            <div class="table-filter">
+                                <label>Filter by Batch ID:</label>
+                                <select id="ar-table-batch-filter" onchange="filterARDataTable()">
+                                    <option value="all">Select All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="data-table-container">
+                            <table id="ar-data-table" class="data-table">
+                                <thead class="sticky-header">
+                                    <tr>
+                                        <th>Batch ID</th>
+                                        <th>Customer</th>
+                                        <th>Invoice #</th>
+                                        <th>Amount</th>
+                                        <th>Loan Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-             <button><a href="https://prashantgolhar.github.io/erp_user/">Back to Invoice upload system</a> </button>
-            <!-- Upload Section -->
-            <!-- <div class="upload-section">
-                <h2>Invoice Upload</h2>
-                <div class="upload-form">
-                    <select id="ar-upload-type">
-                        <option value="customer-invoice">Customer Invoice (AR)</option>
-                    </select>
-                    <div class="file-upload-area" onclick="document.getElementById('ar-file-input').click()">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Click to upload Excel/CSV file</p>
-                        <input type="file" id="ar-file-input" accept=".xlsx,.xls,.csv" style="display: none;" onchange="handleFileSelect('ar')">
-                    </div>
-                    <button class="upload-btn" onclick="uploadFile('ar')">Upload to System</button>
-                    <button class="sample-btn" onclick="downloadSample('ar')">Download Sample File</button>
-                </div>
-            </div> -->
+
         </div>
 
         <!-- AP Financing Tab -->
@@ -151,7 +150,7 @@
                         <i class="fas fa-percentage"></i>
                     </div>
                     <div class="metric-content">
-                        <h3>Total Discounting/Saving Amount</h3>
+                        <h3>Total Discounting Amount</h3>
                         <p class="metric-value" id="ap-discount-amount">$0</p>
                     </div>
                 </div>
@@ -170,59 +169,57 @@
             <div class="analysis-section">
                 <div class="section-header">
                     <h2>Analysis</h2>
-                    <div class="filter-container">
-                        <select id="ap-batch-filter" onchange="filterAPData()">
-                            <option value="all">Select All</option>
-                        </select>
-                    </div>
                 </div>
-                <div class="charts-grid">
-                    <!-- <div class="chart-item">
-                        <h3>Bar Chart</h3>
-                        <canvas id="ap-bar-chart"></canvas>
-                    </div> -->
-                    <!-- <div class="chart-item">
-                        <h3>Doughnut Chart</h3>
-                        <canvas id="ap-doughnut-chart"></canvas>
-                    </div> -->
-                    <div class="chart-item">
-                        <h3>Line Chart</h3>
-                        <canvas id="ap-line-chart"></canvas>
+                <div class="analysis-content">
+                    <div class="chart-container-35">
+                        <div class="chart-header">
+                            <h3>Trend Analysis</h3>
+                            <div class="chart-filters">
+                                <div class="date-filter-group">
+                                    <label>From:</label>
+                                    <input type="date" id="ap-from-date" onchange="filterAPAnalysis()">
+                                    <label>To:</label>
+                                    <input type="date" id="ap-to-date" onchange="filterAPAnalysis()">
+                                    <label>FY:</label>
+                                    <select id="ap-financial-year" onchange="filterAPAnalysis()">
+                                        <option value="all">All Years</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <canvas id="ap-line-chart"></canvas>
+                        </div>
                     </div>
-                </div>
-                <div class="data-table-container">
-                    <table id="ap-data-table" class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Batch ID</th>
-                                <th>Vendor Name</th>
-                                <th>Invoice Number</th>
-                                <th>Invoice Amount</th>
-                                <th>Early Payment Amount</th>
-                                <th>Discount/Saving</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="table-container-65">
+                        <div class="table-header">
+                            <h3>Data Table</h3>
+                            <div class="table-filter">
+                                <label>Filter by Batch ID:</label>
+                                <select id="ap-table-batch-filter" onchange="filterAPDataTable()">
+                                    <option value="all">Select All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="data-table-container">
+                            <table id="ap-data-table" class="data-table">
+                                <thead class="sticky-header">
+                                    <tr>
+                                        <th>Batch ID</th>
+                                        <th>Vendor</th>
+                                        <th>Invoice #</th>
+                                        <th>Amount</th>
+                                        <th>Payment Amount</th>
+                                        <th>Discount</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button><a href="https://prashantgolhar.github.io/erp_user/">Back to Invoice upload system</a> </button>
-            <!-- Upload Section -->
-            <!-- <div class="upload-section">
-                <h2>Invoice Upload</h2>
-                <div class="upload-form">
-                    <select id="ap-upload-type">
-                        <option value="vendor-bill">Vendor Bill/Invoices (AP)</option>
-                    </select>
-                    <div class="file-upload-area" onclick="document.getElementById('ap-file-input').click()">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Click to upload Excel/CSV file</p>
-                        <input type="file" id="ap-file-input" accept=".xlsx,.xls,.csv" style="display: none;" onchange="handleFileSelect('ap')">
-                    </div>
-                    <button class="upload-btn" onclick="uploadFile('ap')">Upload to System</button>
-                    <button class="sample-btn" onclick="downloadSample('ap')">Download Sample File</button>
-                </div>
-            </div> -->
+
         </div>
     </div>
 
